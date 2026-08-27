@@ -739,7 +739,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     if (!fam) return [];
     return DYADS.filter((d) => d.blendOf.includes(fam));
   }
-  const RING_R = [46, 92, 172, 240, 296, 340, 376, 406, 430];
+  const RING_R = [46, 92, 172, 240, 296, 340, 376, 406, 430, 448, 462];
   const DYAD_R0 = 430;
   const DYAD_R1 = 460;
   const MAX_R = DYAD_R1 + 8;
@@ -913,6 +913,42 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     }, [selectedId]);
     const rotation = selNode ? -(((_a = ANGLE_START[selNode.id]) != null ? _a : 0) + ((_b = ANGLE_WIDTH[selNode.id]) != null ? _b : 0) / 2 - 0) : 0;
     const scale = selNode ? Math.min(1 + (selNode.depth || 2) * 0.025, 1.18) : 1;
+    const [dragRotation, setDragRotation] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const dragState = useRef({ dragging: false, lastAngle: 0, total: 0, suppressClick: false, cx: 0, cy: 0 });
+    function angleFromEvent(e, cx0, cy0) {
+      return Math.atan2(e.clientY - cy0, e.clientX - cx0) * (180 / Math.PI);
+    }
+    function onPointerDownSvg(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ccx = rect.left + rect.width / 2, ccy = rect.top + rect.height / 2;
+      dragState.current = { dragging: true, lastAngle: angleFromEvent(e, ccx, ccy), total: 0, suppressClick: false, cx: ccx, cy: ccy };
+      setIsDragging(true);
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    function onPointerMoveSvg(e) {
+      const ds = dragState.current;
+      if (!ds.dragging) return;
+      const a = angleFromEvent(e, ds.cx, ds.cy);
+      let delta = a - ds.lastAngle;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      ds.lastAngle = a;
+      ds.total += Math.abs(delta);
+      if (ds.total > 3) ds.suppressClick = true;
+      setDragRotation((r) => r + delta);
+    }
+    function onPointerUpSvg(e) {
+      dragState.current.dragging = false;
+      setIsDragging(false);
+    }
+    function onClickCaptureSvg(e) {
+      if (dragState.current.suppressClick) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragState.current.suppressClick = false;
+      }
+    }
     const petals = [];
     EMOTIONS.forEach((n) => {
       const a0 = ANGLE_START[n.id], w = ANGLE_WIDTH[n.id];
@@ -922,9 +958,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       const d = petalPath(cx, cy, r0, r1, a0, a0 + w);
       const dim = focusSet && !focusSet.has(n.id);
       const isSel = selectedId === n.id;
-      const showLabel = w * (Math.PI / 180) * ((r0 + r1) / 2) > 34;
+      const showLabel = w * (Math.PI / 180) * ((r0 + r1) / 2) > 26;
       const mid = a0 + w / 2;
       const labelPos = polar(cx, cy, (r0 + r1) / 2, mid);
+      const arcLen = w * (Math.PI / 180) * ((r0 + r1) / 2);
+      const baseFontSize = n.depth <= 3 ? 13 : 10;
+      const fitFontSize = Math.max(7, Math.min(baseFontSize, arcLen / (n.zh.length * 0.75)));
       petals.push(
         /* @__PURE__ */ React.createElement(
           "g",
@@ -961,7 +1000,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
               textAnchor: "middle",
               dominantBaseline: "middle",
               transform: `rotate(${labelAngle(mid)}, ${labelPos.x}, ${labelPos.y})`,
-              style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: n.depth <= 3 ? 13 : 10, fill: "#241F19", pointerEvents: "none" }
+              style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: fitFontSize, fill: "#241F19", pointerEvents: "none" }
             },
             n.zh
           )
@@ -1031,11 +1070,11 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
         )
       );
     });
-    return /* @__PURE__ */ React.createElement("div", { style: { position: "relative", width: "100%", maxWidth: 720, margin: "0 auto", padding: "28px 0 8px", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${size} ${size}`, style: { width: "100%", height: "auto", display: "block", overflow: "visible" } }, /* @__PURE__ */ React.createElement("g", { style: {
-      transform: `rotate(${rotation}deg) scale(${scale})`,
+    return /* @__PURE__ */ React.createElement("div", { style: { position: "relative", width: "100%", maxWidth: 720, margin: "0 auto", padding: "28px 0 8px", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${size} ${size}`, onPointerDown: onPointerDownSvg, onPointerMove: onPointerMoveSvg, onPointerUp: onPointerUpSvg, onPointerCancel: onPointerUpSvg, onClickCapture: onClickCaptureSvg, style: { width: "100%", height: "auto", display: "block", overflow: "visible", touchAction: "none", cursor: isDragging ? "grabbing" : "grab" } }, /* @__PURE__ */ React.createElement("g", { style: {
+      transform: `rotate(${rotation + dragRotation}deg) scale(${scale})`,
       transformOrigin: `${cx}px ${cy}px`,
       transformBox: "view-box",
-      transition: "transform 0.7s cubic-bezier(.2,.7,.2,1)"
+      transition: isDragging ? "none" : "transform 0.7s cubic-bezier(.2,.7,.2,1)"
     } }, /* @__PURE__ */ React.createElement("circle", { cx, cy, r: RING_R[0] - 6, fill: "#2A2721" }), /* @__PURE__ */ React.createElement(
       "text",
       {
@@ -1049,7 +1088,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           fontSize: 12,
           fill: "#F3EFE3",
           pointerEvents: "none",
-          transform: `rotate(${-rotation}deg)`,
+          transform: `rotate(${-(rotation + dragRotation)}deg)`,
           transformOrigin: `${cx}px ${cy}px`,
           transformBox: "view-box"
         }
