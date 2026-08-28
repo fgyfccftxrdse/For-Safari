@@ -351,6 +351,22 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
   const ChevronRight = makeIcon(/* @__PURE__ */ React.createElement("polyline", { points: "9,6 15,12 9,18" }));
   const ArrowLeft = makeIcon(/* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("line", { x1: "19", y1: "12", x2: "5", y2: "12" }), /* @__PURE__ */ React.createElement("polyline", { points: "12,19 5,12 12,5" })));
   const Trash2 = makeIcon(/* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("path", { d: "M3 6h18" }), /* @__PURE__ */ React.createElement("path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" }), /* @__PURE__ */ React.createElement("path", { d: "M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" }), /* @__PURE__ */ React.createElement("line", { x1: "10", y1: "11", x2: "10", y2: "17" }), /* @__PURE__ */ React.createElement("line", { x1: "14", y1: "11", x2: "14", y2: "17" })));
+  const THEMES = {
+    vintage: { label: "\u590D\u53E4", bg: "#EDE8DA", panel: "#F3EFE3", border: "#DAD4C1", ink: "#2A2721", text2: "#5B5647", muted: "#8B8672", body: "#3A362D", heading: "#241F19", onDark: "#F3EFE3" },
+    icecream: { label: "\u51B0\u6DC7\u6DCB", bg: "#FDF3F0", panel: "#FFFBF9", border: "#F3D9DD", ink: "#6B4C4F", text2: "#A97C82", muted: "#C9A8AC", body: "#5A4247", heading: "#4A363A", onDark: "#FFFBF9" },
+    seasalt: { label: "\u6D77\u76D0", bg: "#EFF3F3", panel: "#F7FAFA", border: "#D3DEE0", ink: "#2E4A52", text2: "#5C7A82", muted: "#8FA8AE", body: "#35494F", heading: "#223A40", onDark: "#F7FAFA" },
+    forest: { label: "\u68EE\u7CFB", bg: "#EAEEE3", panel: "#F2F5EC", border: "#CBD6B8", ink: "#33422A", text2: "#5C6B4A", muted: "#8B9678", body: "#3A4630", heading: "#26301E", onDark: "#F2F5EC" },
+    maillard: { label: "\u7F8E\u62C9\u5FB7", bg: "#E8DCC8", panel: "#F2E9D8", border: "#D4B996", ink: "#4A2E1A", text2: "#6E4A2E", muted: "#9C7B54", body: "#3D2716", heading: "#2E1B0E", onDark: "#F2E9D8" },
+    cyberpunk: { label: "\u8D5B\u535A\u670B\u514B", bg: "#0D0F14", panel: "#161B24", border: "#2A3244", ink: "#05070A", text2: "#8B93A8", muted: "#5C6478", body: "#C8D0E0", heading: "#00F0FF", onDark: "#F0F4FF" }
+  };
+    const FAMILY_COLOR_THEMES = {
+    vintage: { joy: "#C99A3C", trust: "#5C7A5E", fear: "#3F5468", surprise: "#3E7A78", sadness: "#4A4368", disgust: "#6B6B3A", anger: "#8C3B32", anticipation: "#9C5A2A", shame: "#6A3E64", drift: "#5A6A4D" },
+    icecream: { joy: "#E0CCA3", trust: "#99DB9D", fear: "#AECAE5", surprise: "#9CDDDB", sadness: "#B5AAE4", disgust: "#DADA96", anger: "#E7B7B1", anticipation: "#DFBAA0", shame: "#E2A7DA", drift: "#BFE0A3" },
+    seasalt: { joy: "#A38B5C", trust: "#58975D", fear: "#6388AB", surprise: "#5A9B99", sadness: "#6E61A8", disgust: "#939357", anger: "#AD6D66", anticipation: "#9F785B", shame: "#A65E9C", drift: "#7CA35C" },
+    forest: { joy: "#786236", trust: "#326C36", fear: "#395F84", surprise: "#34706E", sadness: "#453880", disgust: "#686831", anger: "#88423A", anticipation: "#744F35", shame: "#7C3772", drift: "#537836" },
+    maillard: { joy: "#7E6430", trust: "#2D7131", fear: "#325F8B", surprise: "#2E7573", sadness: "#413186", disgust: "#6D6D2C", anger: "#8F3C33", anticipation: "#7A4E2F", shame: "#823177", drift: "#537E30" },
+    cyberpunk: { joy: "#EEB94F", trust: "#43EA4E", fear: "#5BA8F1", surprise: "#47EBE6", sadness: "#7457F0", disgust: "#E9E93F", anger: "#F16E5F", anticipation: "#ED8F4B", shame: "#EF53D9", drift: "#96EE4F" },
+  };
   const FAMILIES = [
     { id: "joy", zh: "\u559C\u60A6", en: "Joy", ja: "\u559C\u3073", color: "#C99A3C" },
     { id: "trust", zh: "\u4FE1\u4EFB", en: "Trust", ja: "\u4FE1\u983C", color: "#5C7A5E" },
@@ -806,7 +822,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
   function Chip({ node, onClick, tone = "default" }) {
     if (!node) return null;
     const fam = FAMILIES.find((f) => f.id === node.family) || FAMILIES.find((f) => f.id === node.id);
-    const color = fam ? fam.color : "#8B8672";
+    const color = fam ? fam.color : "var(--muted)";
     return /* @__PURE__ */ React.createElement(
       "button",
       {
@@ -819,7 +835,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           borderRadius: 999,
           border: `1px solid ${tone === "dim" ? "#C9C3AF" : color}55`,
           background: tone === "dim" ? "transparent" : `${color}14`,
-          color: "#2A2721",
+          color: "var(--ink)",
           fontFamily: "Inter, sans-serif",
           fontSize: 12.5,
           cursor: onClick ? "pointer" : "default",
@@ -832,7 +848,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
   }
   function MetricBar({ label, value, min = -1, max = 1, leftLabel, rightLabel }) {
     const pct = (value - min) / (max - min) * 100;
-    return /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 12 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 4, letterSpacing: 0.3 } }, /* @__PURE__ */ React.createElement("span", null, leftLabel), /* @__PURE__ */ React.createElement("span", null, label), /* @__PURE__ */ React.createElement("span", null, rightLabel)), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", height: 4, background: "#DAD4C1", borderRadius: 2 } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", left: 0, top: -3, bottom: -3, width: 1, background: "#C9C3AF" } }), /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", left: `${pct}%`, top: -4, width: 10, height: 10, marginLeft: -5, borderRadius: 999, background: "#2A2721", border: "2px solid #F3EFE3" } })));
+    return /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 12 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 4, letterSpacing: 0.3 } }, /* @__PURE__ */ React.createElement("span", null, leftLabel), /* @__PURE__ */ React.createElement("span", null, label), /* @__PURE__ */ React.createElement("span", null, rightLabel)), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", height: 4, background: "var(--border)", borderRadius: 2 } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", left: 0, top: -3, bottom: -3, width: 1, background: "#C9C3AF" } }), /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", left: `${pct}%`, top: -4, width: 10, height: 10, marginLeft: -5, borderRadius: 999, background: "var(--heading)", border: "2px solid var(--panel)" } })));
   }
   function InsightBlock({ node }) {
     if (!node.need) return null;
@@ -842,10 +858,10 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       ["\u5E38\u89C1\u8BEF\u89E3", node.misconception],
       ["\u53EF\u4EE5\u5C1D\u8BD5", node.selfCare]
     ];
-    return /* @__PURE__ */ React.createElement("div", { style: { background: "#EDE8DA", border: "1px solid #DAD4C1", borderRadius: 8, padding: "10px 12px", marginBottom: 16 } },
+    return /* @__PURE__ */ React.createElement("div", { style: { background: "var(--bg)", border: "1px solid var(--border)", borderRadius: 8, padding: "10px 12px", marginBottom: 16 } },
       rows.map(([label, val], i) => /* @__PURE__ */ React.createElement("div", { key: label, style: { display: "flex", gap: 8, padding: i > 0 ? "6px 0 0" : "0 0 0", borderTop: i > 0 ? "1px solid #DAD4C133" : "none", marginTop: i > 0 ? 6 : 0 } },
-        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#8B8672", flexShrink: 0, width: 68 } }, label),
-        /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12.5, color: "#3A362D", lineHeight: 1.6 } }, val)
+        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "var(--muted)", flexShrink: 0, width: 68 } }, label),
+        /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12.5, color: "var(--body)", lineHeight: 1.6 } }, val)
       ))
     );
   }
@@ -866,16 +882,16 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     const intensityLevel = node.isFamilyRoot ? null : anc && anc.isChain ? anc.chainIndex + 1 : null;
     return /* @__PURE__ */ React.createElement("div", { style: {
       fontFamily: "Inter, sans-serif",
-      color: "#2A2721",
-      background: "#F3EFE3",
-      border: "1px solid #DAD4C1",
+      color: "var(--ink)",
+      background: "var(--panel)",
+      border: "1px solid var(--border)",
       borderRadius: 10,
       padding: "18px 20px 22px",
       boxShadow: "0 1px 2px rgba(30,35,32,0.04)",
       position: "relative",
       maxHeight: "100%",
       overflowY: "auto"
-    } }, /* @__PURE__ */ React.createElement("button", { onClick: onClose, style: { position: "absolute", top: 14, right: 14, background: "none", border: "none", cursor: "pointer", color: "#8B8672" } }, /* @__PURE__ */ React.createElement(X, { size: 16 })), ancestors.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 10, fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672" } }, ancestors.map((a, i) => /* @__PURE__ */ React.createElement("span", { key: a.id }, /* @__PURE__ */ React.createElement("span", { style: { cursor: "pointer", textDecoration: "underline dotted" }, onClick: () => onSelect(a.id) }, a.zh), i < ancestors.length - 1 ? " \u203A " : " \u203A "))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "baseline", gap: 10, marginBottom: 2 } }, /* @__PURE__ */ React.createElement("span", { style: { width: 10, height: 10, borderRadius: 999, background: fam.color, display: "inline-block" } }), /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 28, margin: 0 } }, node.zh)), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 15, color: "#5B5647", marginBottom: 2 } }, node.en), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 12.5, color: "#8B8672", marginBottom: 14 } }, node.ja), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13.5, lineHeight: 1.7, color: "#3A362D", marginBottom: 16 } }, node.desc), /* @__PURE__ */ React.createElement(InsightBlock, { node }), intensityLevel && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 10 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 4 } }, "INTENSITY \xB7 ", fam.zh, "\u5F3A\u5EA6\u8C31"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 4 } }, [1, 2, 3, 4, 5, 6].map((i) => /* @__PURE__ */ React.createElement("span", { key: i, style: { width: 16, height: 6, borderRadius: 2, background: i <= intensityLevel ? fam.color : "#DAD4C1" } })))), /* @__PURE__ */ React.createElement(MetricBar, { label: "VALENCE", value: node.val, leftLabel: "\u4E0D\u6109\u60A6", rightLabel: "\u6109\u60A6" }), /* @__PURE__ */ React.createElement(MetricBar, { label: "AROUSAL", value: node.aro, min: 0, max: 1, leftLabel: "\u4F4E\u5524\u9192", rightLabel: "\u9AD8\u5524\u9192" }), kids.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, "\u8FDB\u4E00\u6B65\u7EC6\u5206 \xB7 ", kids.length), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, kids.map((k) => /* @__PURE__ */ React.createElement(Chip, { key: k.id, node: k, onClick: onSelect })))), siblings.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, "NEARBY \xB7 \u9644\u8FD1"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, siblings.map((s) => /* @__PURE__ */ React.createElement(Chip, { key: s.id, node: s, onClick: onSelect })))), opp.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, "OPPOSITE \xB7 \u76F8\u5BF9"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, opp.map((o) => /* @__PURE__ */ React.createElement(Chip, { key: o.id, node: o, onClick: onSelect, tone: "dim" })))), dyads.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, "\u76F8\u5173\u590D\u5408\u60C5\u7EEA \xB7 BLENDS"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, dyads.map((d) => /* @__PURE__ */ React.createElement(Chip, { key: d.id, node: d, onClick: onSelect })))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 20 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onAddToMixer(node.id), style: btnStyle() }, "\u52A0\u5165 Mixer"), /* @__PURE__ */ React.createElement("button", { onClick: () => onAddToTimeline(node.id), style: btnStyle(true) }, "\u8BB0\u5F55\u5230\u6B64\u523B")));
+    } }, /* @__PURE__ */ React.createElement("button", { onClick: onClose, style: { position: "absolute", top: 14, right: 14, background: "none", border: "none", cursor: "pointer", color: "var(--muted)" } }, /* @__PURE__ */ React.createElement(X, { size: 16 })), ancestors.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 10, fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)" } }, ancestors.map((a, i) => /* @__PURE__ */ React.createElement("span", { key: a.id }, /* @__PURE__ */ React.createElement("span", { style: { cursor: "pointer", textDecoration: "underline dotted" }, onClick: () => onSelect(a.id) }, a.zh), i < ancestors.length - 1 ? " \u203A " : " \u203A "))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "baseline", gap: 10, marginBottom: 2 } }, /* @__PURE__ */ React.createElement("span", { style: { width: 10, height: 10, borderRadius: 999, background: fam.color, display: "inline-block" } }), /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 28, margin: 0 } }, node.zh)), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 15, color: "var(--text2)", marginBottom: 2 } }, node.en), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 12.5, color: "var(--muted)", marginBottom: 14 } }, node.ja), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13.5, lineHeight: 1.7, color: "var(--body)", marginBottom: 16 } }, node.desc), /* @__PURE__ */ React.createElement(InsightBlock, { node }), intensityLevel && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 10 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 4 } }, "INTENSITY \xB7 ", fam.zh, "\u5F3A\u5EA6\u8C31"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 4 } }, [1, 2, 3, 4, 5, 6].map((i) => /* @__PURE__ */ React.createElement("span", { key: i, style: { width: 16, height: 6, borderRadius: 2, background: i <= intensityLevel ? fam.color : "var(--border)" } })))), /* @__PURE__ */ React.createElement(MetricBar, { label: "VALENCE", value: node.val, leftLabel: "\u4E0D\u6109\u60A6", rightLabel: "\u6109\u60A6" }), /* @__PURE__ */ React.createElement(MetricBar, { label: "AROUSAL", value: node.aro, min: 0, max: 1, leftLabel: "\u4F4E\u5524\u9192", rightLabel: "\u9AD8\u5524\u9192" }), kids.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, "\u8FDB\u4E00\u6B65\u7EC6\u5206 \xB7 ", kids.length), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, kids.map((k) => /* @__PURE__ */ React.createElement(Chip, { key: k.id, node: k, onClick: onSelect })))), siblings.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, "NEARBY \xB7 \u9644\u8FD1"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, siblings.map((s) => /* @__PURE__ */ React.createElement(Chip, { key: s.id, node: s, onClick: onSelect })))), opp.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, "OPPOSITE \xB7 \u76F8\u5BF9"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, opp.map((o) => /* @__PURE__ */ React.createElement(Chip, { key: o.id, node: o, onClick: onSelect, tone: "dim" })))), dyads.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 14 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, "\u76F8\u5173\u590D\u5408\u60C5\u7EEA \xB7 BLENDS"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } }, dyads.map((d) => /* @__PURE__ */ React.createElement(Chip, { key: d.id, node: d, onClick: onSelect })))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginTop: 20 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onAddToMixer(node.id), style: btnStyle() }, "\u52A0\u5165 Mixer"), /* @__PURE__ */ React.createElement("button", { onClick: () => onAddToTimeline(node.id), style: btnStyle(true) }, "\u8BB0\u5F55\u5230\u6B64\u523B")));
   }
   function btnStyle(secondary) {
     return {
@@ -883,9 +899,9 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       fontSize: 12.5,
       padding: "8px 12px",
       borderRadius: 7,
-      border: secondary ? "1px solid #DAD4C1" : "1px solid #2A2721",
-      background: secondary ? "transparent" : "#2A2721",
-      color: secondary ? "#2A2721" : "#F3EFE3",
+      border: secondary ? "1px solid var(--border)" : "1px solid var(--ink)",
+      background: secondary ? "transparent" : "var(--ink)",
+      color: secondary ? "var(--ink)" : "var(--panel)",
       cursor: "pointer"
     };
   }
@@ -988,7 +1004,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
               d,
               fill: fam.color,
               fillOpacity: dim ? 0.1 : fillOpacityFor(n.depth),
-              stroke: isSel ? "#2A2721" : "#F3EFE3",
+              stroke: isSel ? "var(--ink)" : "var(--panel)",
               strokeWidth: isSel ? 1.6 : 0.75,
               style: { transition: "fill-opacity 0.5s ease, stroke 0.3s ease" }
             }
@@ -1001,7 +1017,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
               textAnchor: "middle",
               dominantBaseline: "middle",
               transform: `rotate(${labelAngle(mid)}, ${labelPos.x}, ${labelPos.y})`,
-              style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: fitFontSize, fill: "#241F19", pointerEvents: "none" }
+              style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: fitFontSize, fill: "var(--heading)", pointerEvents: "none" }
             },
             n.zh
           )
@@ -1025,7 +1041,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           onMouseLeave: () => setTooltip(null),
           style: { cursor: "pointer" }
         },
-        /* @__PURE__ */ React.createElement("path", { d: path, fill: "#2A2721", fillOpacity: dim ? 0.06 : 0.72, stroke: isSel ? "#2A2721" : "#F3EFE3", strokeWidth: isSel ? 1.6 : 0.75, style: { transition: "fill-opacity 0.5s ease" } }),
+        /* @__PURE__ */ React.createElement("path", { d: path, fill: "var(--heading)", fillOpacity: dim ? 0.06 : 0.72, stroke: isSel ? "var(--ink)" : "var(--panel)", strokeWidth: isSel ? 1.6 : 0.75, style: { transition: "fill-opacity 0.5s ease" } }),
         !dim && /* @__PURE__ */ React.createElement(
           "text",
           {
@@ -1034,7 +1050,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
             textAnchor: "middle",
             dominantBaseline: "middle",
             transform: `rotate(${labelAngle(mid)}, ${labelPos.x}, ${labelPos.y})`,
-            style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 11.5, fill: "#F3EFE3", pointerEvents: "none" }
+            style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 11.5, fill: "var(--onDark)", pointerEvents: "none" }
           },
           d.zh
         )
@@ -1056,7 +1072,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           onMouseLeave: () => setTooltip(null),
           style: { cursor: "pointer" }
         },
-        /* @__PURE__ */ React.createElement("path", { d: path, fill: f.color, fillOpacity: dim ? 0.12 : 0.9, stroke: "#F3EFE3", strokeWidth: 1, style: { transition: "fill-opacity 0.5s ease" } }),
+        /* @__PURE__ */ React.createElement("path", { d: path, fill: f.color, fillOpacity: dim ? 0.12 : 0.9, stroke: "var(--panel)", strokeWidth: 1, style: { transition: "fill-opacity 0.5s ease" } }),
         !dim && /* @__PURE__ */ React.createElement(
           "text",
           {
@@ -1065,7 +1081,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
             textAnchor: "middle",
             dominantBaseline: "middle",
             transform: `rotate(${labelAngle(mid)}, ${labelPos.x}, ${labelPos.y})`,
-            style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 13, fill: "#F3EFE3", pointerEvents: "none" }
+            style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 13, fill: "var(--onDark)", pointerEvents: "none" }
           },
           f.zh
         )
@@ -1076,7 +1092,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       transformOrigin: `${cx}px ${cy}px`,
       transformBox: "view-box",
       transition: isDragging ? "none" : "transform 0.7s cubic-bezier(.2,.7,.2,1)"
-    } }, /* @__PURE__ */ React.createElement("circle", { cx, cy, r: RING_R[0] - 6, fill: "#2A2721" }), /* @__PURE__ */ React.createElement(
+    } }, /* @__PURE__ */ React.createElement("circle", { cx, cy, r: RING_R[0] - 6, fill: "var(--heading)" }), /* @__PURE__ */ React.createElement(
       "text",
       {
         x: cx,
@@ -1087,7 +1103,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           fontFamily: "Fraunces, serif",
           fontStyle: "italic",
           fontSize: 12,
-          fill: "#F3EFE3",
+          fill: "var(--panel)",
           pointerEvents: "none",
           transform: `rotate(${-(rotation + dragRotation)}deg)`,
           transformOrigin: `${cx}px ${cy}px`,
@@ -1100,15 +1116,15 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       left: tooltip.x + 14,
       top: tooltip.y + 10,
       zIndex: 50,
-      background: "#2A2721",
-      color: "#F3EFE3",
+      background: "var(--ink)",
+      color: "var(--panel)",
       padding: "5px 10px",
       borderRadius: 6,
       fontFamily: "Inter, sans-serif",
       fontSize: 12,
       pointerEvents: "none",
       whiteSpace: "nowrap"
-    } }, tooltip.node.zh, " \xB7 ", tooltip.node.en), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginTop: 6, letterSpacing: 0.5 } }, "\u56FE\u7248 I \xB7 EMOTION ATLAS \u2014 ", ALL_NODES.length - FAMILIES.length, " ENTRIES"));
+    } }, tooltip.node.zh, " \xB7 ", tooltip.node.en), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginTop: 6, letterSpacing: 0.5 } }, "\u56FE\u7248 I \xB7 EMOTION ATLAS \u2014 ", ALL_NODES.length - FAMILIES.length, " ENTRIES"));
   }
   function SpaceView({ selectedId, onSelect }) {
     const w = 720, h = 560, pad = 46;
@@ -1134,18 +1150,18 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       dragRef.current = null;
     }
     const nodes = ALL_NODES.filter((n) => !n.isFamilyRoot);
-    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 760, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 4 } }, /* @__PURE__ */ React.createElement("span", null, "\u4F4E\u5524\u9192 / \u9AD8\u5524\u9192 \xB7 \u7EB5\u8F74"), /* @__PURE__ */ React.createElement("span", null, "\u4E0D\u6109\u60A6 / \u6109\u60A6 \xB7 \u6A2A\u8F74")), /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 760, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 4 } }, /* @__PURE__ */ React.createElement("span", null, "\u4F4E\u5524\u9192 / \u9AD8\u5524\u9192 \xB7 \u7EB5\u8F74"), /* @__PURE__ */ React.createElement("span", null, "\u4E0D\u6109\u60A6 / \u6109\u60A6 \xB7 \u6A2A\u8F74")), /* @__PURE__ */ React.createElement(
       "svg",
       {
         viewBox: `0 0 ${w} ${h}`,
-        style: { width: "100%", height: "auto", background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 8, cursor: dragRef.current ? "grabbing" : "grab" },
+        style: { width: "100%", height: "auto", background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 8, cursor: dragRef.current ? "grabbing" : "grab" },
         onWheel,
         onPointerDown,
         onPointerMove,
         onPointerUp,
         onPointerLeave: onPointerUp
       },
-      /* @__PURE__ */ React.createElement("g", { style: { transform: `translate(${view.tx}px, ${view.ty}px) scale(${view.scale})`, transformOrigin: `${w / 2}px ${h / 2}px` } }, /* @__PURE__ */ React.createElement("line", { x1: pad, y1: h / 2, x2: w - pad, y2: h / 2, stroke: "#DAD4C1", strokeWidth: 1 }), /* @__PURE__ */ React.createElement("line", { x1: w / 2, y1: pad, x2: w / 2, y2: h - pad, stroke: "#DAD4C1", strokeWidth: 1 }), nodes.map((n) => {
+      /* @__PURE__ */ React.createElement("g", { style: { transform: `translate(${view.tx}px, ${view.ty}px) scale(${view.scale})`, transformOrigin: `${w / 2}px ${h / 2}px` } }, /* @__PURE__ */ React.createElement("line", { x1: pad, y1: h / 2, x2: w - pad, y2: h / 2, stroke: "var(--border)", strokeWidth: 1 }), /* @__PURE__ */ React.createElement("line", { x1: w / 2, y1: pad, x2: w / 2, y2: h - pad, stroke: "var(--border)", strokeWidth: 1 }), nodes.map((n) => {
         const fam = FAMILIES.find((f) => f.id === n.family) || {};
         const x = X2(n.val), y = Y(n.aro);
         const isSel = selectedId === n.id;
@@ -1157,9 +1173,9 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
             cx: x,
             cy: y,
             r: isSel ? r + 2.5 : r,
-            fill: n.isDyad ? "#2A2721" : fam.color,
+            fill: n.isDyad ? "var(--ink)" : fam.color,
             fillOpacity: n.isChain || n.isDyad ? 0.9 : 0.55,
-            stroke: isSel ? "#2A2721" : "none",
+            stroke: isSel ? "var(--ink)" : "none",
             strokeWidth: 1.4,
             onClick: () => onSelect(n.id),
             onMouseEnter: (e) => setTooltip({ x: e.clientX, y: e.clientY, node: n }),
@@ -1169,7 +1185,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           }
         );
       }))
-    ), tooltip && /* @__PURE__ */ React.createElement("div", { style: { position: "fixed", left: tooltip.x + 14, top: tooltip.y + 10, zIndex: 50, background: "#2A2721", color: "#F3EFE3", padding: "5px 10px", borderRadius: 6, fontFamily: "Inter, sans-serif", fontSize: 12, pointerEvents: "none", whiteSpace: "nowrap" } }, tooltip.node.zh, " \xB7 ", tooltip.node.en), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#8B8672", marginTop: 6 } }, "\u6EDA\u8F6E\u7F29\u653E \xB7 \u62D6\u62FD\u5E73\u79FB \xB7 \u56FE\u7248 II \u2014 VALENCE / AROUSAL SPACE"));
+    ), tooltip && /* @__PURE__ */ React.createElement("div", { style: { position: "fixed", left: tooltip.x + 14, top: tooltip.y + 10, zIndex: 50, background: "var(--heading)", color: "var(--onDark)", padding: "5px 10px", borderRadius: 6, fontFamily: "Inter, sans-serif", fontSize: 12, pointerEvents: "none", whiteSpace: "nowrap" } }, tooltip.node.zh, " \xB7 ", tooltip.node.en), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "var(--muted)", marginTop: 6 } }, "\u6EDA\u8F6E\u7F29\u653E \xB7 \u62D6\u62FD\u5E73\u79FB \xB7 \u56FE\u7248 II \u2014 VALENCE / AROUSAL SPACE"));
   }
   function searchNodes(q) {
     if (!q || !q.trim()) return [];
@@ -1178,7 +1194,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       (n) => n.zh.includes(q.trim()) || (n.en || "").toLowerCase().includes(s) || (n.ja || "").includes(q.trim()) || (n.desc || "").includes(q.trim())
     ).slice(0, 8);
   }
-  function TopBar({ query, setQuery, onPick, mode, setMode }) {
+  function TopBar({ query, setQuery, onPick, mode, setMode, theme, setTheme }) {
     const results = useMemo(() => searchNodes(query), [query]);
     const [open, setOpen] = useState(false);
     const modes = [
@@ -1189,7 +1205,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       { id: "guess", label: "\u731C\u60C5\u7EEA", icon: Target },
       { id: "timeline", label: "\u65F6\u95F4\u7EBF", icon: Clock }
     ];
-    return /* @__PURE__ */ React.createElement("div", { style: { position: "relative", marginBottom: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginBottom: 10 } }, /* @__PURE__ */ React.createElement("div", { style: { position: "relative", flex: "1 1 220px", minWidth: 180 } }, /* @__PURE__ */ React.createElement(Search, { size: 14, style: { position: "absolute", left: 10, top: 10, color: "#8B8672" } }), /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { style: { position: "relative", marginBottom: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginBottom: 10 } }, /* @__PURE__ */ React.createElement("div", { style: { position: "relative", flex: "1 1 220px", minWidth: 180 } }, /* @__PURE__ */ React.createElement(Search, { size: 14, style: { position: "absolute", left: 10, top: 10, color: "var(--muted)" } }), /* @__PURE__ */ React.createElement(
       "input",
       {
         value: query,
@@ -1203,16 +1219,16 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           width: "100%",
           padding: "8px 10px 8px 30px",
           borderRadius: 8,
-          border: "1px solid #DAD4C1",
-          background: "#F3EFE3",
+          border: "1px solid var(--border)",
+          background: "var(--panel)",
           fontFamily: "Inter, sans-serif",
           fontSize: 13,
-          color: "#2A2721",
+          color: "var(--ink)",
           outline: "none",
           boxSizing: "border-box"
         }
       }
-    ), open && results.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: 38, left: 0, right: 0, background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 8, zIndex: 40, boxShadow: "0 6px 18px rgba(30,35,32,0.10)", maxHeight: 280, overflowY: "auto" } }, results.map((r) => {
+    ), open && results.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: 38, left: 0, right: 0, background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 8, zIndex: 40, boxShadow: "0 6px 18px rgba(30,35,32,0.10)", maxHeight: 280, overflowY: "auto" } }, results.map((r) => {
       const fam = FAMILIES.find((f) => f.id === r.family) || {};
       return /* @__PURE__ */ React.createElement(
         "div",
@@ -1226,10 +1242,10 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           style: { display: "flex", alignItems: "center", gap: 8, padding: "8px 12px", cursor: "pointer", borderBottom: "1px solid #E7E2D2" },
           onMouseDown: (e) => e.preventDefault()
         },
-        /* @__PURE__ */ React.createElement("span", { style: { width: 8, height: 8, borderRadius: 999, background: fam.color || "#2A2721" } }),
+        /* @__PURE__ */ React.createElement("span", { style: { width: 8, height: 8, borderRadius: 999, background: fam.color || "var(--heading)" } }),
         /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Fraunces, serif", fontSize: 14 } }, r.zh),
-        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "#8B8672" } }, r.en),
-        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 11, color: "#8B8672", marginLeft: "auto" } }, r.ja)
+        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "var(--muted)" } }, r.en),
+        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 11, color: "var(--muted)", marginLeft: "auto" } }, r.ja)
       );
     })))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap" } }, modes.map((m) => /* @__PURE__ */ React.createElement(
       "button",
@@ -1242,9 +1258,9 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           gap: 6,
           padding: "6px 12px",
           borderRadius: 999,
-          border: mode === m.id ? "1px solid #2A2721" : "1px solid #DAD4C1",
-          background: mode === m.id ? "#2A2721" : "transparent",
-          color: mode === m.id ? "#F3EFE3" : "#2A2721",
+          border: mode === m.id ? "1px solid var(--heading)" : "1px solid var(--border)",
+          background: mode === m.id ? "var(--heading)" : "transparent",
+          color: mode === m.id ? "var(--onDark)" : "var(--ink)",
           fontFamily: "Inter, sans-serif",
           fontSize: 12.5,
           cursor: "pointer"
@@ -1252,31 +1268,50 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       },
       /* @__PURE__ */ React.createElement(m.icon, { size: 13 }),
       m.label
+    ))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 } }, Object.entries(THEMES).map(([key, t2]) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key,
+        onClick: () => setTheme(key),
+        title: t2.label,
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 5,
+          padding: "3px 9px 3px 3px",
+          borderRadius: 999,
+          border: theme === key ? "1.5px solid " + t2.ink : "1px solid var(--border)",
+          background: t2.panel,
+          cursor: "pointer"
+        }
+      },
+      /* @__PURE__ */ React.createElement("span", { style: { width: 14, height: 14, borderRadius: 999, background: t2.bg, border: `1px solid ${t2.border}`, flexShrink: 0 } }),
+      /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: t2.ink } }, t2.label)
     ))));
   }
   function MixerSlot({ label, node, onPick }) {
     const [q, setQ] = useState("");
     const results = useMemo(() => searchNodes(q), [q]);
     const fam = node ? FAMILIES.find((f) => f.id === node.family) || {} : {};
-    return /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 200 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, label), /* @__PURE__ */ React.createElement("div", { style: {
+    return /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 200 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, label), /* @__PURE__ */ React.createElement("div", { style: {
       height: 96,
       borderRadius: 10,
-      border: `1.5px dashed ${node ? fam.color : "#DAD4C1"}`,
+      border: `1.5px dashed ${node ? fam.color : "var(--border)"}`,
       background: node ? `${fam.color}18` : "transparent",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       flexDirection: "column",
       gap: 4
-    } }, node ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Fraunces, serif", fontSize: 20 } }, node.zh), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "#5B5647" } }, node.en)) : /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, color: "#8B8672" } }, "\u9009\u62E9\u4E00\u79CD\u60C5\u7EEA\u2026")), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", marginTop: 6 } }, /* @__PURE__ */ React.createElement(
+    } }, node ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Fraunces, serif", fontSize: 20 } }, node.zh), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "var(--text2)" } }, node.en)) : /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, color: "var(--muted)" } }, "\u9009\u62E9\u4E00\u79CD\u60C5\u7EEA\u2026")), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", marginTop: 6 } }, /* @__PURE__ */ React.createElement(
       "input",
       {
         value: q,
         onChange: (e) => setQ(e.target.value),
         placeholder: "\u641C\u7D22\u2026",
-        style: { width: "100%", padding: "6px 8px", borderRadius: 6, border: "1px solid #DAD4C1", background: "#F3EFE3", fontFamily: "Inter, sans-serif", fontSize: 12.5, boxSizing: "border-box" }
+        style: { width: "100%", padding: "6px 8px", borderRadius: 6, border: "1px solid var(--border)", background: "var(--panel)", fontFamily: "Inter, sans-serif", fontSize: 12.5, boxSizing: "border-box" }
       }
-    ), results.length > 0 && q && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: 32, left: 0, right: 0, background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 8, zIndex: 30, maxHeight: 200, overflowY: "auto" } }, results.map((r) => /* @__PURE__ */ React.createElement("div", { key: r.id, onMouseDown: () => {
+    ), results.length > 0 && q && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: 32, left: 0, right: 0, background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 8, zIndex: 30, maxHeight: 200, overflowY: "auto" } }, results.map((r) => /* @__PURE__ */ React.createElement("div", { key: r.id, onMouseDown: () => {
       onPick(r.id);
       setQ("");
     }, style: { padding: "6px 10px", cursor: "pointer", fontFamily: "Inter, sans-serif", fontSize: 12.5 } }, r.zh, " \xB7 ", r.en)))));
@@ -1303,7 +1338,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
         }).sort((x, y) => y.score - x.score || x.dist - y.dist).slice(0, 3).map((x) => x.d);
       }
     }
-    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 620, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 20, alignItems: "flex-start", position: "relative" } }, /* @__PURE__ */ React.createElement(MixerSlot, { label: "A", node: nodeA, onPick: setA }), /* @__PURE__ */ React.createElement("div", { style: { paddingTop: 40, fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 20, color: "#8B8672", transition: "transform 0.5s ease", transform: merging ? "translateX(0)" : "translateX(0)" } }, "+"), /* @__PURE__ */ React.createElement(MixerSlot, { label: "B", node: nodeB, onPick: setB })), nodeA && nodeB && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 26, textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 10 } }, exact ? "\u7ECF\u5178 DYAD \xB7 \u7CBE\u786E\u5339\u914D" : "\u6CA1\u6709\u552F\u4E00\u5BF9\u5E94\u7684\u8BCD \xB7 \u6BD4\u8F83\u63A5\u8FD1\u7684\u7EC4\u5408"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" } }, (exact ? [exact] : near).map((d) => /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 620, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 20, alignItems: "flex-start", position: "relative" } }, /* @__PURE__ */ React.createElement(MixerSlot, { label: "A", node: nodeA, onPick: setA }), /* @__PURE__ */ React.createElement("div", { style: { paddingTop: 40, fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 20, color: "var(--muted)", transition: "transform 0.5s ease", transform: merging ? "translateX(0)" : "translateX(0)" } }, "+"), /* @__PURE__ */ React.createElement(MixerSlot, { label: "B", node: nodeB, onPick: setB })), nodeA && nodeB && /* @__PURE__ */ React.createElement("div", { style: { marginTop: 26, textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 10 } }, exact ? "\u7ECF\u5178 DYAD \xB7 \u7CBE\u786E\u5339\u914D" : "\u6CA1\u6709\u552F\u4E00\u5BF9\u5E94\u7684\u8BCD \xB7 \u6BD4\u8F83\u63A5\u8FD1\u7684\u7EC4\u5408"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" } }, (exact ? [exact] : near).map((d) => /* @__PURE__ */ React.createElement(
       "div",
       {
         key: d.id,
@@ -1312,8 +1347,8 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           cursor: "pointer",
           padding: "16px 22px",
           borderRadius: 12,
-          background: "#2A2721",
-          color: "#F3EFE3",
+          background: "var(--ink)",
+          color: "var(--panel)",
           minWidth: 160,
           opacity: merging ? 1 : 0,
           transform: merging ? "translateY(0) scale(1)" : "translateY(10px) scale(0.94)",
@@ -1323,7 +1358,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontSize: 22 } }, d.zh),
       /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, opacity: 0.8 } }, d.en, " \xB7 ", d.ja),
       /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 11.5, opacity: 0.65, marginTop: 6, lineHeight: 1.5 } }, d.desc)
-    )))), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#8B8672", marginTop: 20 } }, "\u56FE\u7248 III \u2014 EMOTION MIXER\uFF08\u57FA\u4E8E Plutchik Dyad \u6982\u5FF5\u6269\u5C55\uFF09"));
+    )))), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "var(--muted)", marginTop: 20 } }, "\u56FE\u7248 III \u2014 EMOTION MIXER\uFF08\u57FA\u4E8E Plutchik Dyad \u6982\u5FF5\u6269\u5C55\uFF09"));
   }
   const SELF_CHECK_ITEMS = [
     { id: "temp", title: "\u6E29\u5EA6", body: "\u6478\u81EA\u5DF1\u540E\u9888\uFF0C\u5982\u679C\u6D41\u6C57\u8BF4\u660E\u70ED\u4E86\uFF0C\u8BF7\u5F00\u7A7A\u8C03\u6216\u8131\u8863\uFF1B\u5982\u679C\u51B0\u51C9\u8BF4\u660E\u51B7\u4E86\uFF0C\u8BF7\u52A0\u8863\u6216\u53BB\u5BA4\u5185\u3002\u5982\u679C\u53EA\u662F\u611F\u89C9\u51B7\uFF0C\u52A0\u4E86\u8863\u670D\u5374\u6CA1\u7528\uFF0C\u8BF7\u8003\u8651\u81EA\u5DF1\u662F\u5426\u997F\u4E86\u3002" },
@@ -1342,21 +1377,21 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     { id: "other", title: "\u5176\u5B83", body: "\u623F\u95F4\u662F\u5426\u7F3A\u6C27\uFF1F\u5168\u8EAB\u6709\u6CA1\u6709\u808C\u8089\u7D27\u5F20\uFF1F\uFF08\u6DF1\u547C\u5438\u540E\u4FDD\u6301\u51E0\u79D2\uFF0C\u7136\u540E\u5410\u51FA\uFF0C\u540C\u65F6\u5C3D\u91CF\u653E\u677E\u808C\u8089\uFF0C\u6CA1\u6709\u597D\u4E00\u70B9\uFF1F\uFF09" }
   ];
   function CheckItemCard({ item, status, expanded, onToggle, onMark, onGotoEmotion }) {
-    const statusColor = status === "flagged" ? "#B15A3E" : status === "excluded" ? "#8B8672" : "#DAD4C1";
+    const statusColor = status === "flagged" ? "#B15A3E" : status === "excluded" ? "var(--muted)" : "var(--border)";
     const statusLabel = status === "flagged" ? "\u53EF\u80FD\u662F\u8FD9\u4E2A" : status === "excluded" ? "\u5DF2\u6392\u9664" : "";
-    return /* @__PURE__ */ React.createElement("div", { style: { border: `1px solid ${status === "flagged" ? "#B15A3E88" : "#DAD4C1"}`, borderRadius: 10, marginBottom: 8, background: status === "flagged" ? "#B15A3E0E" : "#FBFAF5", overflow: "hidden" } },
+    return /* @__PURE__ */ React.createElement("div", { style: { border: `1px solid ${status === "flagged" ? "#B15A3E88" : "var(--border)"}`, borderRadius: 10, marginBottom: 8, background: status === "flagged" ? "#B15A3E0E" : "var(--panel)", overflow: "hidden" } },
       /* @__PURE__ */ React.createElement("div", { onClick: onToggle, style: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "11px 14px", cursor: "pointer" } },
         /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 9 } },
           /* @__PURE__ */ React.createElement("span", { style: { width: 8, height: 8, borderRadius: 999, background: statusColor, flexShrink: 0 } }),
-          /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Fraunces, serif", fontSize: 15.5, color: "#2A2721" } }, item.title)
+          /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Fraunces, serif", fontSize: 15.5, color: "var(--ink)" } }, item.title)
         ),
         /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8 } },
-          statusLabel && /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#8B8672" } }, statusLabel),
-          /* @__PURE__ */ React.createElement(ChevronRight, { size: 13, style: { color: "#8B8672", transform: expanded ? "rotate(90deg)" : "none", transition: "transform 0.15s" } })
+          statusLabel && /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "var(--muted)" } }, statusLabel),
+          /* @__PURE__ */ React.createElement(ChevronRight, { size: 13, style: { color: "var(--muted)", transform: expanded ? "rotate(90deg)" : "none", transition: "transform 0.15s" } })
         )
       ),
       expanded && /* @__PURE__ */ React.createElement("div", { style: { padding: "0 14px 14px" } },
-        /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, lineHeight: 1.7, color: "#3A362D", margin: "0 0 10px" } }, item.body),
+        /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, lineHeight: 1.7, color: "var(--body)", margin: "0 0 10px" } }, item.body),
         item.isEmotionExit ? /* @__PURE__ */ React.createElement("button", { onClick: onGotoEmotion, style: btnStyle() }, "\u53BB\u770B\u60C5\u7EEA\u7EC6\u5206") : /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8 } },
           /* @__PURE__ */ React.createElement("button", { onClick: () => onMark("excluded"), style: btnStyle(true) }, "\u6392\u9664"),
           /* @__PURE__ */ React.createElement("button", { onClick: () => onMark("flagged"), style: { ...btnStyle(), border: "1px solid #B15A3E", background: "#B15A3E" } }, "\u53EF\u80FD\u662F\u8FD9\u4E2A")
@@ -1368,8 +1403,8 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     const doneCount = Object.keys(states).length;
     const flaggedCount = Object.values(states).filter((s) => s === "flagged").length;
     return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 560, margin: "0 auto" } },
-      /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6, textAlign: "center" } }, "\u4E0D\u9002\u81EA\u67E5"),
-      /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12.5, lineHeight: 1.7, color: "#5B5647", textAlign: "center", margin: "0 0 16px" } }, "\u4EFB\u610F\u987A\u5E8F\u5C55\u5F00\uFF0C\u9010\u6761\u6392\u67E5\u3002\u4E0D\u7528\u5168\u90E8\u8D70\u5B8C\uFF0C\u770B\u5230\u89C9\u5F97\u5BF9\u4E86\u5C31\u53EF\u4EE5\u505C\u3002"),
+      /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6, textAlign: "center" } }, "\u4E0D\u9002\u81EA\u67E5"),
+      /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12.5, lineHeight: 1.7, color: "var(--text2)", textAlign: "center", margin: "0 0 16px" } }, "\u4EFB\u610F\u987A\u5E8F\u5C55\u5F00\uFF0C\u9010\u6761\u6392\u67E5\u3002\u4E0D\u7528\u5168\u90E8\u8D70\u5B8C\uFF0C\u770B\u5230\u89C9\u5F97\u5BF9\u4E86\u5C31\u53EF\u4EE5\u505C\u3002"),
       SELF_CHECK_ITEMS.map((item) => /* @__PURE__ */ React.createElement(CheckItemCard, {
         key: item.id,
         item,
@@ -1380,7 +1415,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
         onGotoEmotion
       })),
       /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginTop: 16 } },
-        /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#8B8672", marginBottom: 10 } }, `\u5DF2\u6392\u67E5 ${doneCount} / ${SELF_CHECK_ITEMS.length}\u9879${flaggedCount ? ` \xB7 \u6807\u8BB0\u4E86 ${flaggedCount} \u9879\u53EF\u80FD` : ""}`),
+        /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "var(--muted)", marginBottom: 10 } }, `\u5DF2\u6392\u67E5 ${doneCount} / ${SELF_CHECK_ITEMS.length}\u9879${flaggedCount ? ` \xB7 \u6807\u8BB0\u4E86 ${flaggedCount} \u9879\u53EF\u80FD` : ""}`),
         /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center" } },
           /* @__PURE__ */ React.createElement("button", { onClick: onGotoEmotion, style: btnStyle(true) }, "\u90FD\u6392\u67E5\u5B8C\u4E86\uFF0C\u8FD8\u662F\u4E0D\u8212\u670D"),
           /* @__PURE__ */ React.createElement("button", { onClick: onRestart, style: btnStyle(true) }, "\u91CD\u65B0\u5F00\u59CB")
@@ -1440,13 +1475,13 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     }
     if (stage === "split") {
       return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 480, margin: "0 auto", textAlign: "center" } },
-        /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 10 } }, "\u73B0\u5728\u611F\u89C9\u4E0D\u592A\u5BF9"),
-        /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 22, margin: "0 0 22px", lineHeight: 1.5, color: "#241F19" } }, "\u8FD9\u66F4\u50CF\u8EAB\u4F53\u4E0A\u7684\u4E0D\u8212\u670D\uFF0C\u8FD8\u662F\u5FC3\u91CC\u7684\u60C5\u7EEA\uFF1F"),
+        /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 10 } }, "\u73B0\u5728\u611F\u89C9\u4E0D\u592A\u5BF9"),
+        /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 22, margin: "0 0 22px", lineHeight: 1.5, color: "var(--heading)" } }, "\u8FD9\u66F4\u50CF\u8EAB\u4F53\u4E0A\u7684\u4E0D\u8212\u670D\uFF0C\u8FD8\u662F\u5FC3\u91CC\u7684\u60C5\u7EEA\uFF1F"),
         /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" } },
           /* @__PURE__ */ React.createElement("button", { onClick: () => setStage("checklist"), style: { ...btnStyle(), padding: "12px 22px", fontSize: 14 } }, "\u8EAB\u4F53"),
           /* @__PURE__ */ React.createElement("button", { onClick: () => setStage("emotion"), style: { ...btnStyle(true), padding: "12px 22px", fontSize: 14 } }, "\u60C5\u7EEA")
         ),
-        /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#8B8672", marginTop: 18, lineHeight: 1.7 } }, "\u4E0D\u786E\u5B9A\u4E5F\u6CA1\u5173\u7CFB\uFF0C\u9009\u4E00\u4E2A\u5148\u8D70\u8D70\u770B\uFF0C\u968F\u65F6\u53EF\u4EE5\u4ECE\u8EAB\u4F53\u90A3\u8FB9\u8DF3\u8FC7\u6765\u3002")
+        /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "var(--muted)", marginTop: 18, lineHeight: 1.7 } }, "\u4E0D\u786E\u5B9A\u4E5F\u6CA1\u5173\u7CFB\uFF0C\u9009\u4E00\u4E2A\u5148\u8D70\u8D70\u770B\uFF0C\u968F\u65F6\u53EF\u4EE5\u4ECE\u8EAB\u4F53\u90A3\u8FB9\u8DF3\u8FC7\u6765\u3002")
       );
     }
     if (stage === "checklist") {
@@ -1461,9 +1496,9 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     }
     if (leaf) {
       const fam = FAMILIES.find((f) => f.id === currentNode.family) || {};
-      return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 480, margin: "0 auto", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 14 } }, "\u4F60\u627E\u5230\u7684\u60C5\u7EEA"), /* @__PURE__ */ React.createElement("div", { style: { width: 12, height: 12, borderRadius: 999, background: currentNode.custom ? "#2A2721" : fam.color, margin: "0 auto 10px" } }), /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 34, margin: 0 } }, currentNode.zh), currentNode.en && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 16, color: "#5B5647" } }, currentNode.en), currentNode.ja && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 12.5, color: "#8B8672" } }, currentNode.ja), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13.5, lineHeight: 1.7, marginTop: 14, color: "#3A362D" } }, currentNode.desc), currentNode.custom && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "#8B8672", marginTop: 4 } }, "\u8FD9\u662F\u4F60\u81EA\u5DF1\u547D\u540D\u7684\u611F\u89C9\uFF0C\u5DF2\u52A0\u5165\u4F60\u7684\u4E2A\u4EBA\u5730\u56FE\u3002"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center", marginTop: 20 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onFinish(currentId), style: btnStyle() }, "\u5728\u56FE\u8C31\u4E2D\u67E5\u770B"), /* @__PURE__ */ React.createElement("button", { onClick: restart, style: btnStyle(true) }, "\u91CD\u65B0\u5F00\u59CB")));
+      return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 480, margin: "0 auto", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 14 } }, "\u4F60\u627E\u5230\u7684\u60C5\u7EEA"), /* @__PURE__ */ React.createElement("div", { style: { width: 12, height: 12, borderRadius: 999, background: currentNode.custom ? "var(--heading)" : fam.color, margin: "0 auto 10px" } }), /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 34, margin: 0 } }, currentNode.zh), currentNode.en && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 16, color: "var(--text2)" } }, currentNode.en), currentNode.ja && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 12.5, color: "var(--muted)" } }, currentNode.ja), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13.5, lineHeight: 1.7, marginTop: 14, color: "var(--body)" } }, currentNode.desc), currentNode.custom && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "var(--muted)", marginTop: 4 } }, "\u8FD9\u662F\u4F60\u81EA\u5DF1\u547D\u540D\u7684\u611F\u89C9\uFF0C\u5DF2\u52A0\u5165\u4F60\u7684\u4E2A\u4EBA\u5730\u56FE\u3002"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center", marginTop: 20 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onFinish(currentId), style: btnStyle() }, "\u5728\u56FE\u8C31\u4E2D\u67E5\u770B"), /* @__PURE__ */ React.createElement("button", { onClick: restart, style: btnStyle(true) }, "\u91CD\u65B0\u5F00\u59CB")));
     }
-    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 560, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 10, textAlign: "center" } }, currentId ? `\u4F60\u9009\u7684\u662F\u300C${currentNode.zh}\u300D\u2014 \u54EA\u4E2A\u66F4\u63A5\u8FD1\u4F60\u73B0\u5728\u7684\u611F\u89C9\uFF1F` : "\u54EA\u4E2A\u66F4\u63A5\u8FD1\u4F60\u73B0\u5728\u7684\u611F\u89C9\uFF1F"), !showAmbiguous ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" } }, options.map((o) => {
+    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 560, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 10, textAlign: "center" } }, currentId ? `\u4F60\u9009\u7684\u662F\u300C${currentNode.zh}\u300D\u2014 \u54EA\u4E2A\u66F4\u63A5\u8FD1\u4F60\u73B0\u5728\u7684\u611F\u89C9\uFF1F` : "\u54EA\u4E2A\u66F4\u63A5\u8FD1\u4F60\u73B0\u5728\u7684\u611F\u89C9\uFF1F"), !showAmbiguous ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" } }, options.map((o) => {
       const fam = FAMILIES.find((f) => f.id === o.family) || {};
       return /* @__PURE__ */ React.createElement(
         "button",
@@ -1473,23 +1508,23 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           style: {
             padding: "10px 16px",
             borderRadius: 10,
-            border: `1px solid ${fam.color || "#DAD4C1"}88`,
-            background: `${fam.color || "#DAD4C1"}14`,
+            border: `1px solid ${fam.color || "var(--border)"}88`,
+            background: `${fam.color || "var(--border)"}14`,
             fontFamily: "Fraunces, serif",
             fontSize: 15,
             cursor: "pointer",
-            color: "#2A2721"
+            color: "var(--ink)"
           }
         },
         o.zh
       );
-    })), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center", marginTop: 18 } }, path.length > 0 && /* @__PURE__ */ React.createElement("button", { onClick: goBack, style: btnStyle(true) }, /* @__PURE__ */ React.createElement(ArrowLeft, { size: 12, style: { marginRight: 4, verticalAlign: -2 } }), "\u90FD\u4E0D\u592A\u50CF"), /* @__PURE__ */ React.createElement("button", { onClick: () => setShowAmbiguous(true), style: btnStyle(true) }, "\u6211\u8BF4\u4E0D\u6E05"), path.length > 0 && /* @__PURE__ */ React.createElement("button", { onClick: restart, style: btnStyle(true) }, "\u91CD\u65B0\u5F00\u59CB"))) : /* @__PURE__ */ React.createElement("div", { style: { background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 10, padding: 18 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 13, color: "#5B5647", marginBottom: 10 } }, "\u6CA1\u5173\u7CFB\u3002\u4E5F\u53EF\u4EE5\u76F4\u63A5\u7ED9\u8FD9\u4E2A\u8BF4\u4E0D\u6E05\u7684\u611F\u89C9\u8D77\u4E2A\u540D\u5B57\uFF0C\u5B58\u8FDB\u4F60\u81EA\u5DF1\u7684\u5730\u56FE\u3002"), /* @__PURE__ */ React.createElement(
+    })), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center", marginTop: 18 } }, path.length > 0 && /* @__PURE__ */ React.createElement("button", { onClick: goBack, style: btnStyle(true) }, /* @__PURE__ */ React.createElement(ArrowLeft, { size: 12, style: { marginRight: 4, verticalAlign: -2 } }), "\u90FD\u4E0D\u592A\u50CF"), /* @__PURE__ */ React.createElement("button", { onClick: () => setShowAmbiguous(true), style: btnStyle(true) }, "\u6211\u8BF4\u4E0D\u6E05"), path.length > 0 && /* @__PURE__ */ React.createElement("button", { onClick: restart, style: btnStyle(true) }, "\u91CD\u65B0\u5F00\u59CB"))) : /* @__PURE__ */ React.createElement("div", { style: { background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 10, padding: 18 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 13, color: "var(--text2)", marginBottom: 10 } }, "\u6CA1\u5173\u7CFB\u3002\u4E5F\u53EF\u4EE5\u76F4\u63A5\u7ED9\u8FD9\u4E2A\u8BF4\u4E0D\u6E05\u7684\u611F\u89C9\u8D77\u4E2A\u540D\u5B57\uFF0C\u5B58\u8FDB\u4F60\u81EA\u5DF1\u7684\u5730\u56FE\u3002"), /* @__PURE__ */ React.createElement(
       "input",
       {
         value: customName,
         onChange: (e) => setCustomName(e.target.value),
         placeholder: "\u540D\u79F0\uFF0C\u4F8B\u5982\u300C\u5FEB\u4E50\u4F46\u6709\u70B9\u4E0D\u771F\u5B9E\u300D",
-        style: { width: "100%", padding: 8, borderRadius: 6, border: "1px solid #DAD4C1", fontFamily: "Inter, sans-serif", fontSize: 13, marginBottom: 8, boxSizing: "border-box" }
+        style: { width: "100%", padding: 8, borderRadius: 6, border: "1px solid var(--border)", fontFamily: "Inter, sans-serif", fontSize: 13, marginBottom: 8, boxSizing: "border-box" }
       }
     ), /* @__PURE__ */ React.createElement(
       "textarea",
@@ -1498,7 +1533,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
         onChange: (e) => setCustomDesc(e.target.value),
         placeholder: "\u7B80\u5355\u63CF\u8FF0\u4E00\u4E0B\uFF08\u53EF\u9009\uFF09",
         rows: 2,
-        style: { width: "100%", padding: 8, borderRadius: 6, border: "1px solid #DAD4C1", fontFamily: "Inter, sans-serif", fontSize: 13, marginBottom: 10, boxSizing: "border-box", resize: "vertical" }
+        style: { width: "100%", padding: 8, borderRadius: 6, border: "1px solid var(--border)", fontFamily: "Inter, sans-serif", fontSize: 13, marginBottom: 10, boxSizing: "border-box", resize: "vertical" }
       }
     ), /* @__PURE__ */ React.createElement(MetricBar, { label: "VALENCE", value: customVal, leftLabel: "\u4E0D\u6109\u60A6", rightLabel: "\u6109\u60A6" }), /* @__PURE__ */ React.createElement("input", { type: "range", min: -1, max: 1, step: 0.05, value: customVal, onChange: (e) => setCustomVal(parseFloat(e.target.value)), style: { width: "100%", marginTop: -6, marginBottom: 10 } }), /* @__PURE__ */ React.createElement(MetricBar, { label: "AROUSAL", value: customAro, min: 0, max: 1, leftLabel: "\u4F4E\u5524\u9192", rightLabel: "\u9AD8\u5524\u9192" }), /* @__PURE__ */ React.createElement("input", { type: "range", min: 0, max: 1, step: 0.05, value: customAro, onChange: (e) => setCustomAro(parseFloat(e.target.value)), style: { width: "100%", marginTop: -6, marginBottom: 14 } }), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "flex-end" } }, /* @__PURE__ */ React.createElement("button", { onClick: () => setShowAmbiguous(false), style: btnStyle(true) }, "\u8FD4\u56DE"), /* @__PURE__ */ React.createElement("button", { onClick: submitCustom, style: btnStyle() }, "\u4FDD\u5B58\u8FD9\u4E2A\u611F\u89C9"))));
   }
@@ -1550,8 +1585,8 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     if (split) {
       const q = GUESS_QUESTIONS[split.axis];
       return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 520, margin: "0 auto", textAlign: "center" } },
-        /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 10 } }, `\u7B2C ${history.length + 1} \u9898 \xB7 \u5019\u9009\u7EA6 ${candidates.length} \u4E2A`),
-        /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 21, margin: "0 0 22px", lineHeight: 1.5, color: "#241F19" } }, q.text),
+        /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 10 } }, `\u7B2C ${history.length + 1} \u9898 \xB7 \u5019\u9009\u7EA6 ${candidates.length} \u4E2A`),
+        /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 21, margin: "0 0 22px", lineHeight: 1.5, color: "var(--heading)" } }, q.text),
         /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" } },
           /* @__PURE__ */ React.createElement("button", { onClick: () => answer(split.low), style: { ...btnStyle(), padding: "12px 20px", fontSize: 13.5 } }, q.low),
           /* @__PURE__ */ React.createElement("button", { onClick: () => answer(split.high), style: { ...btnStyle(true), padding: "12px 20px", fontSize: 13.5 } }, q.high)
@@ -1560,17 +1595,17 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       );
     }
     return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 560, margin: "0 auto" } },
-      /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 10, textAlign: "center" } }, "\u5DEE\u4E0D\u591A\u7B5B\u5230\u8FD9\u51E0\u4E2A\u4E86"),
-      /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12.5, color: "#5B5647", textAlign: "center", margin: "0 0 16px" } }, "\u70B9\u4E00\u4E2A\u6700\u63A5\u8FD1\u7684\uFF0C\u6216\u8005\u56DE\u5230\u4E0A\u4E00\u9898\u6362\u4E2A\u7B54\u6848\u3002"),
+      /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 10, textAlign: "center" } }, "\u5DEE\u4E0D\u591A\u7B5B\u5230\u8FD9\u51E0\u4E2A\u4E86"),
+      /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12.5, color: "var(--text2)", textAlign: "center", margin: "0 0 16px" } }, "\u70B9\u4E00\u4E2A\u6700\u63A5\u8FD1\u7684\uFF0C\u6216\u8005\u56DE\u5230\u4E0A\u4E00\u9898\u6362\u4E2A\u7B54\u6848\u3002"),
       /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 8 } }, candidates.map((n) => {
         const fam = FAMILIES.find((f) => f.id === n.family) || {};
-        return /* @__PURE__ */ React.createElement("div", { key: n.id, onClick: () => onFinish(n.id), style: { display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", border: "1px solid #DAD4C1", borderRadius: 8, background: "#FBFAF5", cursor: "pointer" } },
+        return /* @__PURE__ */ React.createElement("div", { key: n.id, onClick: () => onFinish(n.id), style: { display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 8, background: "var(--panel)", cursor: "pointer" } },
           /* @__PURE__ */ React.createElement("span", { style: { width: 9, height: 9, borderRadius: 999, background: fam.color, flexShrink: 0 } }),
           /* @__PURE__ */ React.createElement("div", { style: { flex: 1 } },
-            /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontSize: 15, color: "#2A2721" } }, n.zh),
-            /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11.5, color: "#8B8672" } }, n.desc)
+            /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontSize: 15, color: "var(--ink)" } }, n.zh),
+            /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11.5, color: "var(--muted)" } }, n.desc)
           ),
-          /* @__PURE__ */ React.createElement(ChevronRight, { size: 13, style: { color: "#8B8672", flexShrink: 0 } })
+          /* @__PURE__ */ React.createElement(ChevronRight, { size: 13, style: { color: "var(--muted)", flexShrink: 0 } })
         );
       })),
       /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginTop: 16, display: "flex", gap: 8, justifyContent: "center" } },
@@ -1623,13 +1658,13 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     const w = 640, h = 90, pad = 20;
     const X2 = (i) => sorted.length > 1 ? pad + i / (sorted.length - 1) * (w - pad * 2) : w / 2;
     const Y = (v) => h - 14 - (v + 1) / 2 * (h - 28);
-    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 640, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 10, padding: 16, marginBottom: 18 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 8 } }, "\u8BB0\u5F55\u6B64\u523B"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 640, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 10, padding: 16, marginBottom: 18 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 8 } }, "\u8BB0\u5F55\u6B64\u523B"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement(
       "input",
       {
         type: "time",
         value: time,
         onChange: (e) => setTime(e.target.value),
-        style: { padding: 7, borderRadius: 6, border: "1px solid #DAD4C1", fontFamily: "IBM Plex Mono, monospace", fontSize: 13 }
+        style: { padding: 7, borderRadius: 6, border: "1px solid var(--border)", fontFamily: "IBM Plex Mono, monospace", fontSize: 13 }
       }
     ), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", flex: "1 1 160px" } }, /* @__PURE__ */ React.createElement(
       "input",
@@ -1640,9 +1675,9 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           setPicked(null);
         },
         placeholder: "\u9009\u62E9\u60C5\u7EEA\u2026",
-        style: { width: "100%", padding: 7, borderRadius: 6, border: "1px solid #DAD4C1", fontFamily: "Inter, sans-serif", fontSize: 13, boxSizing: "border-box" }
+        style: { width: "100%", padding: 7, borderRadius: 6, border: "1px solid var(--border)", fontFamily: "Inter, sans-serif", fontSize: 13, boxSizing: "border-box" }
       }
-    ), q && !picked && results.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: 34, left: 0, right: 0, background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 8, zIndex: 20, maxHeight: 180, overflowY: "auto" } }, results.map((r) => /* @__PURE__ */ React.createElement("div", { key: r.id, onMouseDown: () => {
+    ), q && !picked && results.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: 34, left: 0, right: 0, background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 8, zIndex: 20, maxHeight: 180, overflowY: "auto" } }, results.map((r) => /* @__PURE__ */ React.createElement("div", { key: r.id, onMouseDown: () => {
       setPicked(r.id);
       setQ("");
     }, style: { padding: "6px 10px", cursor: "pointer", fontFamily: "Inter, sans-serif", fontSize: 12.5 } }, r.zh, " \xB7 ", r.en)))), /* @__PURE__ */ React.createElement(
@@ -1651,13 +1686,13 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
         value: note,
         onChange: (e) => setNote(e.target.value),
         placeholder: "\u5907\u6CE8\uFF08\u53EF\u9009\uFF09",
-        style: { flex: "1 1 140px", padding: 7, borderRadius: 6, border: "1px solid #DAD4C1", fontFamily: "Inter, sans-serif", fontSize: 13, boxSizing: "border-box" }
+        style: { flex: "1 1 140px", padding: 7, borderRadius: 6, border: "1px solid var(--border)", fontFamily: "Inter, sans-serif", fontSize: 13, boxSizing: "border-box" }
       }
-    ), /* @__PURE__ */ React.createElement("button", { onClick: addEntry, style: btnStyle() }, "\u6DFB\u52A0"))), sorted.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 18 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672" } }, "\u4ECA\u65E5\u8F68\u8FF9"), /* @__PURE__ */ React.createElement("button", { onClick: () => setPlaying((p) => !p), style: { ...btnStyle(true), display: "flex", alignItems: "center", gap: 6 } }, playing ? /* @__PURE__ */ React.createElement(Pause, { size: 12 }) : /* @__PURE__ */ React.createElement(Play, { size: 12 }), playing ? "\u6682\u505C" : "\u64AD\u653E")), /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${w} ${h}`, style: { width: "100%", background: "#F3EFE3", border: "1px solid #DAD4C1", borderRadius: 8 } }, /* @__PURE__ */ React.createElement("line", { x1: pad, y1: h / 2, x2: w - pad, y2: h / 2, stroke: "#DAD4C1", strokeWidth: 1 }), sorted.length > 1 && /* @__PURE__ */ React.createElement(
+    ), /* @__PURE__ */ React.createElement("button", { onClick: addEntry, style: btnStyle() }, "\u6DFB\u52A0"))), sorted.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 18 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)" } }, "\u4ECA\u65E5\u8F68\u8FF9"), /* @__PURE__ */ React.createElement("button", { onClick: () => setPlaying((p) => !p), style: { ...btnStyle(true), display: "flex", alignItems: "center", gap: 6 } }, playing ? /* @__PURE__ */ React.createElement(Pause, { size: 12 }) : /* @__PURE__ */ React.createElement(Play, { size: 12 }), playing ? "\u6682\u505C" : "\u64AD\u653E")), /* @__PURE__ */ React.createElement("svg", { viewBox: `0 0 ${w} ${h}`, style: { width: "100%", background: "var(--panel)", border: "1px solid var(--border)", borderRadius: 8 } }, /* @__PURE__ */ React.createElement("line", { x1: pad, y1: h / 2, x2: w - pad, y2: h / 2, stroke: "var(--border)", strokeWidth: 1 }), sorted.length > 1 && /* @__PURE__ */ React.createElement(
       "polyline",
       {
         fill: "none",
-        stroke: "#8B8672",
+        stroke: "var(--muted)",
         strokeWidth: 1.2,
         points: sorted.map((e, i) => {
           const n = byId[e.nodeId];
@@ -1676,8 +1711,8 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           cx: X2(i),
           cy: Y(n.val),
           r: active ? 7 : 4.5,
-          fill: fam.color || "#2A2721",
-          stroke: active ? "#2A2721" : "none",
+          fill: fam.color || "var(--ink)",
+          stroke: active ? "var(--ink)" : "none",
           strokeWidth: 2,
           onClick: () => onSelect(e.nodeId),
           style: { cursor: "pointer" }
@@ -1687,14 +1722,20 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       const n = byId[e.nodeId];
       if (!n) return null;
       const fam = FAMILIES.find((f) => f.id === n.family) || {};
-      return /* @__PURE__ */ React.createElement("div", { key: e.id, style: { display: "flex", alignItems: "center", gap: 10, padding: "8px 4px", borderBottom: "1px solid #E7E2D2" } }, /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 12, color: "#8B8672", width: 42 } }, e.time), /* @__PURE__ */ React.createElement("span", { style: { width: 8, height: 8, borderRadius: 999, background: fam.color || "#2A2721" } }), /* @__PURE__ */ React.createElement("span", { onClick: () => onSelect(e.nodeId), style: { fontFamily: "Fraunces, serif", fontSize: 15, cursor: "pointer" } }, n.zh), e.note && /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "#8B8672" } }, "\u2014 ", e.note), /* @__PURE__ */ React.createElement("button", { onClick: () => removeEntry(e.id), style: { marginLeft: "auto", background: "none", border: "none", cursor: "pointer", color: "#8B8672" } }, /* @__PURE__ */ React.createElement(Trash2, { size: 13 })));
-    }), sorted.length === 0 && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 13, color: "#8B8672", textAlign: "center", padding: "20px 0" } }, "\u8FD8\u6CA1\u6709\u8BB0\u5F55\u3002\u6DFB\u52A0\u4F60\u6B64\u523B\u7684\u611F\u89C9\u5427\u3002")), sorted.length > 1 && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 24, flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 220 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, "\u5E38\u51FA\u73B0\u7684\u533A\u57DF"), Object.entries(famCounts).sort((a, b) => b[1] - a[1]).map(([fid, c]) => {
+      return /* @__PURE__ */ React.createElement("div", { key: e.id, style: { display: "flex", alignItems: "center", gap: 10, padding: "8px 4px", borderBottom: "1px solid #E7E2D2" } }, /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 12, color: "var(--muted)", width: 42 } }, e.time), /* @__PURE__ */ React.createElement("span", { style: { width: 8, height: 8, borderRadius: 999, background: fam.color || "var(--heading)" } }), /* @__PURE__ */ React.createElement("span", { onClick: () => onSelect(e.nodeId), style: { fontFamily: "Fraunces, serif", fontSize: 15, cursor: "pointer" } }, n.zh), e.note && /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12, color: "var(--muted)" } }, "\u2014 ", e.note), /* @__PURE__ */ React.createElement("button", { onClick: () => removeEntry(e.id), style: { marginLeft: "auto", background: "none", border: "none", cursor: "pointer", color: "var(--muted)" } }, /* @__PURE__ */ React.createElement(Trash2, { size: 13 })));
+    }), sorted.length === 0 && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 13, color: "var(--muted)", textAlign: "center", padding: "20px 0" } }, "\u8FD8\u6CA1\u6709\u8BB0\u5F55\u3002\u6DFB\u52A0\u4F60\u6B64\u523B\u7684\u611F\u89C9\u5427\u3002")), sorted.length > 1 && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 24, flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 220 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, "\u5E38\u51FA\u73B0\u7684\u533A\u57DF"), Object.entries(famCounts).sort((a, b) => b[1] - a[1]).map(([fid, c]) => {
       const f = FAMILIES.find((x) => x.id === fid);
-      return /* @__PURE__ */ React.createElement("div", { key: fid, style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 4 } }, /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, width: 60 } }, f == null ? void 0 : f.zh), /* @__PURE__ */ React.createElement("div", { style: { height: 6, borderRadius: 3, background: f == null ? void 0 : f.color, width: `${c * 24}px`, maxWidth: 140 } }), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 11, color: "#8B8672" } }, c));
-    })), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 220 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", marginBottom: 6 } }, "\u60C5\u7EEA\u8F6C\u6362\u8DEF\u5F84"), Object.entries(transCounts).length === 0 && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, color: "#8B8672" } }, "\u4ECA\u5929\u60C5\u7EEA\u6BD4\u8F83\u5E73\u7A33\uFF0C\u8DE8\u5BB6\u65CF\u8F6C\u6362\u4E0D\u591A\u3002"), Object.entries(transCounts).map(([t, c]) => /* @__PURE__ */ React.createElement("div", { key: t, style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, marginBottom: 3 } }, t, " ", /* @__PURE__ */ React.createElement("span", { style: { color: "#8B8672" } }, "\xD7", c))))));
+      return /* @__PURE__ */ React.createElement("div", { key: fid, style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 4 } }, /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, width: 60 } }, f == null ? void 0 : f.zh), /* @__PURE__ */ React.createElement("div", { style: { height: 6, borderRadius: 3, background: f == null ? void 0 : f.color, width: `${c * 24}px`, maxWidth: 140 } }), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 11, color: "var(--muted)" } }, c));
+    })), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 220 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", marginBottom: 6 } }, "\u60C5\u7EEA\u8F6C\u6362\u8DEF\u5F84"), Object.entries(transCounts).length === 0 && /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, color: "var(--muted)" } }, "\u4ECA\u5929\u60C5\u7EEA\u6BD4\u8F83\u5E73\u7A33\uFF0C\u8DE8\u5BB6\u65CF\u8F6C\u6362\u4E0D\u591A\u3002"), Object.entries(transCounts).map(([t, c]) => /* @__PURE__ */ React.createElement("div", { key: t, style: { fontFamily: "Inter, sans-serif", fontSize: 12.5, marginBottom: 3 } }, t, " ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--muted)" } }, "\xD7", c))))));
   }
   function EmotionAtlas() {
     const [mode, setMode] = useState("atlas");
+    const [theme, setTheme] = useState("vintage");
+    const t = THEMES[theme];
+    const famColorSet = FAMILY_COLOR_THEMES[theme] || FAMILY_COLOR_THEMES.vintage;
+    FAMILIES.forEach((f) => {
+      if (famColorSet[f.id]) f.color = famColorSet[f.id];
+    });
     const [selectedId, setSelectedId] = useState(null);
     const [hoverId, setHoverId] = useState(null);
     const [query, setQuery] = useState("");
@@ -1712,12 +1753,23 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       if (mode !== "atlas" && mode !== "space") setMode("atlas");
     }
     const selectedNode = selectedId ? byId[selectedId] : null;
-    return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#EDE8DA", padding: "20px 16px 60px", position: "relative" } }, /* @__PURE__ */ React.createElement("style", null, `
+    return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "var(--bg)", padding: "20px 16px 60px", position: "relative" } }, /* @__PURE__ */ React.createElement("style", null, `
+        :root {
+          --bg: ${t.bg};
+          --panel: ${t.panel};
+          --border: ${t.border};
+          --ink: ${t.ink};
+          --text2: ${t.text2};
+          --muted: ${t.muted};
+          --body: ${t.body};
+          --heading: ${t.heading};
+          --onDark: ${t.onDark};
+        }
         ${FONT_IMPORT}
         * { box-sizing: border-box; }
         body { margin: 0; }
         input, textarea { outline: none; }
-        input[type="range"] { accent-color: #2A2721; }
+        input[type="range"] { accent-color: var(--ink); }
         ::selection { background: #C99A3C55; }
       `), /* @__PURE__ */ React.createElement("div", { style: {
       position: "fixed",
@@ -1726,7 +1778,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       opacity: 0.05,
       zIndex: 0,
       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
-    } }), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 1180, margin: "0 auto", position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 22 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "#8B8672", letterSpacing: 2 } }, "A FIELD GUIDE TO FEELING"), /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 34, margin: "4px 0 2px", color: "#241F19" } }, "\u60C5\u7EEA\u56FE\u9274 Emotion Atlas"), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 13, color: "#8B8672" } }, "\u4E00\u672C\u53EF\u4EE5\u88AB\u63A2\u7D22\u7684\u6570\u5B57\u60C5\u7EEA\u56FE\u9274\uFF0C\u6536\u5F55 ", ALL_NODES.length - FAMILIES.length, " \u79CD\u60C5\u7EEA")), /* @__PURE__ */ React.createElement(TopBar, { query, setQuery, onPick: select, mode, setMode }), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 24, flexWrap: "wrap", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement("div", { style: { flex: "1 1 500px", minWidth: 300 } }, mode === "atlas" && /* @__PURE__ */ React.createElement(AtlasView, { selectedId, onSelect: select, hoverId, setHoverId }), mode === "space" && /* @__PURE__ */ React.createElement(SpaceView, { selectedId, onSelect: select }), mode === "mixer" && /* @__PURE__ */ React.createElement(MixerView, { a: mixerA, b: mixerB, setA: setMixerA, setB: setMixerB, onSelect: select }), mode === "find" && /* @__PURE__ */ React.createElement(FindView, { path: findPath, setPath: setFindPath, onFinish: (id) => {
+    } }), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 1180, margin: "0 auto", position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 22 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "IBM Plex Mono, monospace", fontSize: 10.5, color: "var(--muted)", letterSpacing: 2 } }, "A FIELD GUIDE TO FEELING"), /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "Fraunces, serif", fontWeight: 560, fontSize: 34, margin: "4px 0 2px", color: "var(--heading)" } }, "\u60C5\u7EEA\u56FE\u9274 Emotion Atlas"), /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Fraunces, serif", fontStyle: "italic", fontSize: 13, color: "var(--muted)" } }, "\u4E00\u672C\u53EF\u4EE5\u88AB\u63A2\u7D22\u7684\u6570\u5B57\u60C5\u7EEA\u56FE\u9274\uFF0C\u6536\u5F55 ", ALL_NODES.length - FAMILIES.length, " \u79CD\u60C5\u7EEA")), /* @__PURE__ */ React.createElement(TopBar, { query, setQuery, onPick: select, mode, setMode, theme, setTheme }), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 24, flexWrap: "wrap", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement("div", { style: { flex: "1 1 500px", minWidth: 300 } }, mode === "atlas" && /* @__PURE__ */ React.createElement(AtlasView, { selectedId, onSelect: select, hoverId, setHoverId }), mode === "space" && /* @__PURE__ */ React.createElement(SpaceView, { selectedId, onSelect: select }), mode === "mixer" && /* @__PURE__ */ React.createElement(MixerView, { a: mixerA, b: mixerB, setA: setMixerA, setB: setMixerB, onSelect: select }), mode === "find" && /* @__PURE__ */ React.createElement(FindView, { path: findPath, setPath: setFindPath, onFinish: (id) => {
       select(id);
       setFindPath([]);
     }, customNodes, addCustom }), mode === "guess" && /* @__PURE__ */ React.createElement(GuessView, { onFinish: (id) => {
@@ -1747,7 +1799,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           setMode("timeline");
         }
       }
-    ) : /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 13, color: "#8B8672", padding: "30px 10px", textAlign: "center", border: "1px dashed #DAD4C1", borderRadius: 10 } }, "\u70B9\u51FB\u4E00\u7247\u82B1\u74E3\uFF0C\u67E5\u770B\u5B83\u7684\u8BE6\u7EC6\u4FE1\u606F\u3001\u5F3A\u5EA6\u3001\u9644\u8FD1\u7684\u60C5\u7EEA\u4E0E\u76F8\u53CD\u7684\u60C5\u7EEA\u3002"))), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "#8B8672", marginTop: 40, opacity: 0.7 } }, "\u7075\u611F\u6765\u81EA Plutchik's Wheel of Emotions \xB7 \u672C\u9875\u6570\u636E\u4EC5\u4FDD\u5B58\u4E8E\u5F53\u524D\u4F1A\u8BDD\uFF0C\u5237\u65B0\u9875\u9762\u4F1A\u91CD\u7F6E")));
+    ) : /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "Inter, sans-serif", fontSize: 13, color: "var(--muted)", padding: "30px 10px", textAlign: "center", border: "1px dashed var(--border)", borderRadius: 10 } }, "\u70B9\u51FB\u4E00\u7247\u82B1\u74E3\uFF0C\u67E5\u770B\u5B83\u7684\u8BE6\u7EC6\u4FE1\u606F\u3001\u5F3A\u5EA6\u3001\u9644\u8FD1\u7684\u60C5\u7EEA\u4E0E\u76F8\u53CD\u7684\u60C5\u7EEA\u3002"))), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", fontFamily: "IBM Plex Mono, monospace", fontSize: 10, color: "var(--muted)", marginTop: 40, opacity: 0.7 } }, "\u7075\u611F\u6765\u81EA Plutchik's Wheel of Emotions \xB7 \u672C\u9875\u6570\u636E\u4EC5\u4FDD\u5B58\u4E8E\u5F53\u524D\u4F1A\u8BDD\uFF0C\u5237\u65B0\u9875\u9762\u4F1A\u91CD\u7F6E")));
   }
   const rootEl = document.getElementById("root");
   ReactDOM.createRoot(rootEl).render(/* @__PURE__ */ React.createElement(EmotionAtlas, null));
